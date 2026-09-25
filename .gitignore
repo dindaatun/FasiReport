@@ -1,0 +1,8 @@
+node_modules/
+build/
+# dist/ dipertahankan agar bundle siap pakai selalu ikut saat diekspor
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
