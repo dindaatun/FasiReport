@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/* ---------- Palet hangat & hidup: teal laut, krem pasir, aksen status jelas ---------- */
+@theme {
+  --color-teal-50:#e6faf4; --color-teal-100:#c3f2e4; --color-teal-200:#8ee6cf; --color-teal-300:#55d5b8; --color-teal-400:#22c0a1; --color-teal-500:#0fa88a; --color-teal-600:#0a9079; --color-teal-700:#08796a; --color-teal-800:#0a6156; --color-teal-900:#0b5047; --color-teal-950:#04302b;
+
+  --color-slate-50:#fcfbf8; --color-slate-100:#f5f3ee; --color-slate-200:#e8e5dc; --color-slate-300:#d2cdbf; --color-slate-400:#9a9486; --color-slate-500:#6b6559; --color-slate-600:#524d43; --color-slate-700:#3f3b33; --color-slate-800:#2a2722; --color-slate-900:#1c1a17; --color-slate-950:#11100e;
+
+  --color-rose-50:#fff1ef; --color-rose-100:#ffe0db; --color-rose-200:#ffc4bb; --color-rose-300:#ff9d90; --color-rose-400:#f56f5e; --color-rose-500:#e5513f; --color-rose-600:#cc3f2f; --color-rose-700:#a93226; --color-rose-800:#8a2e25; --color-rose-900:#712b24; --color-rose-950:#3d130f;
+
+  --color-amber-50:#fff8e6; --color-amber-100:#ffefc2; --color-amber-200:#ffe08a; --color-amber-300:#ffcd4d; --color-amber-400:#f5b324; --color-amber-500:#e09a0e; --color-amber-600:#bf7a09; --color-amber-700:#96600c; --color-amber-800:#7a4d10; --color-amber-900:#66400f; --color-amber-950:#3a2106;
+
+  --color-emerald-50:#ecf8f0; --color-emerald-100:#d3f0de; --color-emerald-200:#a9e2bf; --color-emerald-300:#76cf9a; --color-emerald-400:#45b877; --color-emerald-500:#2a9d5f; --color-emerald-600:#1f8450; --color-emerald-700:#1b6a42; --color-emerald-800:#195538; --color-emerald-900:#164730; --color-emerald-950:#0a2a1b;
+
+  --color-sky-50:#eaf5fd; --color-sky-100:#d2e9fa; --color-sky-200:#a8d4f4; --color-sky-300:#72b9ec; --color-sky-400:#3f9ae0; --color-sky-500:#2580cb; --color-sky-600:#1b66ab; --color-sky-700:#195289; --color-sky-800:#194571; --color-sky-900:#183b5d; --color-sky-950:#0e2338;
+
+  --color-indigo-50:#f0f0ff; --color-indigo-100:#e2e2fe; --color-indigo-200:#c9c9fc; --color-indigo-300:#a7a5f8; --color-indigo-400:#8480f1; --color-indigo-500:#6a63e6; --color-indigo-600:#574dd0; --color-indigo-700:#473fb0; --color-indigo-800:#3b358f; --color-indigo-900:#342f73; --color-indigo-950:#1f1c45;
+
+  /* Bayangan lebih halus dan menyebar */
+  --shadow-xs:0 1px 2px 0 rgb(60 50 35 / .04);
+  --shadow-sm:0 2px 8px -2px rgb(60 50 35 / .07);
+  --shadow-md:0 6px 16px -4px rgb(60 50 35 / .09);
+  --shadow-lg:0 12px 28px -8px rgb(60 50 35 / .11);
+  --shadow-xl:0 20px 40px -12px rgb(60 50 35 / .13);
+  --shadow-2xl:0 28px 56px -16px rgb(60 50 35 / .18);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+}
+
+
+/* ---------- Animasi & transisi halus (warna/ikon tidak diubah) ---------- */
+html { scroll-behavior: smooth; }
+
+@keyframes fr-fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes fr-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fr-pop { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes fr-shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-5px); } 40%,80% { transform: translateX(5px); } }
+@keyframes fr-slide-in { from { transform: translateX(-100%); } to { transform: none; } }
+
+/* Konten halaman: tiap blok muncul berurutan saat berpindah menu */
+.anim-page > * { animation: fr-fade-up .45s cubic-bezier(.22,1,.36,1) backwards; }
+.anim-page > *:nth-child(2) { animation-delay: .05s; }
+.anim-page > *:nth-child(3) { animation-delay: .1s; }
+.anim-page > *:nth-child(4) { animation-delay: .15s; }
+.anim-page > *:nth-child(5) { animation-delay: .2s; }
+.anim-page > *:nth-child(n+6) { animation-delay: .25s; }
+
+/* Modal: latar memudar, kotak muncul membesar halus */
+.anim-overlay { animation: fr-fade-in .2s ease-out both; }
+.anim-overlay > * { animation: fr-pop .3s cubic-bezier(.22,1,.36,1) both; }
+
+.anim-enter { animation: fr-fade-up .55s cubic-bezier(.22,1,.36,1) backwards; }
+.anim-shake { animation: fr-shake .4s ease-in-out; }
+
+/* Interaksi umum */
+button, a, input, select, textarea { transition-property: color, background-color, border-color, box-shadow, transform, opacity; transition-duration: .2s; transition-timing-function: ease; }
+button:not(:disabled):active { transform: scale(.97); }
+.hover-lift { transition: transform .25s ease, box-shadow .25s ease; }
+.hover-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgb(15 23 42 / .18); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Halaman daftar mengisi tinggi layar penuh */
+.fill-page { min-height: calc(100vh - 8.5rem); display: flex; flex-direction: column; }
+.fill-card { flex: 1 1 auto; }
+
+/* ---------- Interaksi tambahan ---------- */
+@keyframes fr-toast { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes fr-row { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+@keyframes fr-pulse-soft { 0%,100% { box-shadow: 0 0 0 0 rgb(204 63 47 / .38); } 50% { box-shadow: 0 0 0 5px rgb(204 63 47 / 0); } }
+@keyframes fr-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+tbody tr { animation: fr-row .4s cubic-bezier(.22,1,.36,1) backwards; }
+tbody tr:nth-child(2) { animation-delay: .04s; } tbody tr:nth-child(3) { animation-delay: .08s; }
+tbody tr:nth-child(4) { animation-delay: .12s; } tbody tr:nth-child(5) { animation-delay: .16s; }
+tbody tr:nth-child(n+6) { animation-delay: .2s; }
+tbody tr { transition: background-color .2s ease; }
+
+/* Kartu di dalam grid terangkat halus saat disorot */
+.anim-page .grid > div[class*="rounded-2xl"]:not([class*="overflow-hidden"]),
+.anim-page .grid > button[class*="rounded-2xl"] { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.anim-page .grid > div[class*="rounded-2xl"]:not([class*="overflow-hidden"]):hover,
+.anim-page .grid > button[class*="rounded-2xl"]:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+/* Item daftar (laporan, fasilitas) bergeser tipis saat disorot */
+.anim-page button[class*="rounded-xl"][class*="border"]:not(:disabled):hover,
+.anim-page button[class*="rounded-2xl"][class*="border"]:not(:disabled):hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+
+/* Sidebar: ikon bergerak sedikit */
+aside button svg, aside button span { transition: transform .2s ease; }
+aside button:hover svg { transform: scale(1.12); }
+aside button:hover span { transform: translateX(2px); }
+
+/* Lencana "Terlambat" berdenyut lembut agar terlihat */
+[class*="animate-pulse"] { animation-duration: 2.4s; }
+.fr-pulse { animation: fr-pulse-soft 2.2s ease-in-out infinite; }
+.fr-float { animation: fr-float 4s ease-in-out infinite; }
+.anim-toast { animation: fr-toast .35s cubic-bezier(.22,1,.36,1) both; }
+
+/* ---------- Gerak tambahan ---------- */
+@keyframes fr-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes fr-ring { 0%,100% { transform: rotate(0); } 15% { transform: rotate(14deg); } 30% { transform: rotate(-12deg); } 45% { transform: rotate(8deg); } 60% { transform: rotate(-5deg); } 75% { transform: rotate(0); } }
+@keyframes fr-shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+
+/* Bar progres/persentase tumbuh dari kiri */
+[class*="rounded-full"][style*="width"] { transform-origin: left center; animation: fr-grow .9s cubic-bezier(.22,1,.36,1) backwards; }
+
+/* Daftar bersarang muncul berurutan */
+.anim-page .space-y-2 > *, .anim-page .space-y-3 > * { animation: fr-fade-up .45s cubic-bezier(.22,1,.36,1) backwards; }
+.anim-page :is(.space-y-2,.space-y-3) > *:nth-child(2) { animation-delay: .05s; }
+.anim-page :is(.space-y-2,.space-y-3) > *:nth-child(3) { animation-delay: .1s; }
+.anim-page :is(.space-y-2,.space-y-3) > *:nth-child(4) { animation-delay: .15s; }
+.anim-page :is(.space-y-2,.space-y-3) > *:nth-child(5) { animation-delay: .2s; }
+.anim-page :is(.space-y-2,.space-y-3) > *:nth-child(n+6) { animation-delay: .25s; }
+
+/* Tombol utama: sorotan cahaya halus saat disorot */
+button[class*="bg-teal-700"]:not(:disabled):hover, button[class*="bg-teal-600"]:not(:disabled):hover { box-shadow: 0 8px 18px -6px rgb(31 122 100 / .55); transform: translateY(-1px); }
+button[class*="bg-teal-700"]:not(:disabled):active, button[class*="bg-teal-600"]:not(:disabled):active { transform: translateY(0) scale(.98); }
+
+/* Lonceng notifikasi bergoyang saat ada yang belum dibaca */
+.fr-ring svg { transform-origin: 50% 0; animation: fr-ring 2.4s ease-in-out 1s infinite; }
+
+/* Fokus keyboard jelas */
+:focus-visible { outline: 2px solid var(--color-teal-500); outline-offset: 2px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; }
+
+/* Kerangka muat (skeleton) */
+.fr-skeleton { background: linear-gradient(90deg, var(--color-slate-100) 25%, var(--color-slate-200) 50%, var(--color-slate-100) 75%); background-size: 200% 100%; animation: fr-shimmer 1.4s linear infinite; border-radius: .75rem; }
+
+/* ================= Gerak & kecerahan tambahan ================= */
+@keyframes fr-gradient { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@keyframes fr-drift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-24px,18px) scale(1.12); } }
+@keyframes fr-route { 0% { width: 0; opacity: 1; } 70% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }
+@keyframes fr-burst { from { transform: translate(-50%,-50%) scale(.2); opacity: .55; } to { transform: translate(-50%,-50%) scale(1); opacity: 0; } }
+@keyframes fr-nudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+@keyframes fr-indicator { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.fr-scroll { scrollbar-width: thin; scrollbar-color: var(--color-slate-300) transparent; }
+
+/* Banner hijau: gradasi bergeser perlahan + gelembung cahaya melayang */
+[class*="bg-gradient-to-r"][class*="from-teal"] { background-size: 220% 220%; position: relative; overflow: hidden; isolation: isolate;
+  animation: fr-fade-up .45s cubic-bezier(.22,1,.36,1) backwards, fr-gradient 16s ease-in-out infinite; }
+[class*="bg-gradient-to-r"][class*="from-teal"]::before, [class*="bg-gradient-to-r"][class*="from-teal"]::after { content: ""; position: absolute; border-radius: 9999px; pointer-events: none; z-index: -1; }
+[class*="bg-gradient-to-r"][class*="from-teal"]::before { width: 280px; height: 280px; right: -70px; top: -110px; background: radial-gradient(circle, rgb(255 255 255 / .30), transparent 68%); animation: fr-drift 9s ease-in-out infinite; }
+[class*="bg-gradient-to-r"][class*="from-teal"]::after { width: 220px; height: 220px; left: 38%; bottom: -130px; background: radial-gradient(circle, rgb(255 255 255 / .20), transparent 68%); animation: fr-drift 12s ease-in-out -4s infinite; }
+
+/* Bilah progres tipis saat berpindah halaman */
+.fr-route-bar { position: fixed; top: 0; left: 0; height: 3px; z-index: 70; pointer-events: none; background: linear-gradient(90deg, var(--color-teal-400), var(--color-amber-400), var(--color-rose-400)); border-radius: 0 3px 3px 0; animation: fr-route .9s cubic-bezier(.22,1,.36,1) forwards; }
+
+/* Cincin klik */
+.fr-burst { position: fixed; z-index: 80; width: 90px; height: 90px; border-radius: 9999px; pointer-events: none; border: 2px solid var(--color-teal-400); background: radial-gradient(circle, rgb(18 168 140 / .25), transparent 70%); animation: fr-burst .55s ease-out forwards; }
+
+/* Kartu muncul saat di-scroll */
+.fr-hide { opacity: 0; transform: translateY(26px) scale(.98); }
+.fr-hide.fr-in { opacity: 1; transform: none; transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+
+/* Sidebar: indikator di menu aktif + geser saat disorot */
+aside button { position: relative; }
+aside button[class*="bg-teal-700"]::before { content: ""; position: absolute; left: -14px; top: 22%; bottom: 22%; width: 4px; border-radius: 0 4px 4px 0; background: var(--color-teal-400); transform-origin: center; animation: fr-indicator .35s cubic-bezier(.22,1,.36,1) both; }
+
+/* Panah & ikon aksi bergeser saat tombol disorot */
+button svg, a svg { transition: transform .2s ease; }
+button:hover > svg.lucide-arrow-right, button:hover > svg.lucide-arrow-up-right, button:hover > svg.lucide-chevron-right, a:hover > svg.lucide-arrow-right { transform: translateX(4px); }
+button:hover > svg.lucide-plus { transform: rotate(90deg) scale(1.1); }
+button:hover > svg.lucide-trash-2 { transform: rotate(-10deg) scale(1.15); }
+button:hover > svg.lucide-pencil, button:hover > svg.lucide-eye { transform: scale(1.18); }
+
+/* Baris tabel: garis penanda di kiri saat disorot */
+tbody tr:hover { background-color: color-mix(in oklab, var(--color-teal-50) 70%, transparent); }
+tbody tr td:first-child { transition: box-shadow .2s ease; }
+tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 var(--color-teal-500); }
+
+/* Kartu statistik: ikon bergoyang halus saat kartu disorot */
+.anim-page .grid > div:hover svg { animation: fr-nudge .6s ease; }
+
+/* Halaman login: gelembung warna melayang di latar */
+.fr-blob { position: absolute; border-radius: 9999px; filter: blur(48px); pointer-events: none; opacity: .55; animation: fr-drift 14s ease-in-out infinite; }
